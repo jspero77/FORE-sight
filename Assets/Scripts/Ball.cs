@@ -62,6 +62,17 @@ public class Ball : MonoBehaviour
 
         lr.SetPosition(0, transform.position);
         lr.SetPosition(1, (Vector2)transform.position + Vector2.ClampMagnitude(dir * power / 4, maxPower / 4));
+        float distance = Vector2.Distance((Vector2)transform.position, pos);
+        if (distance < 1f)
+        {
+            lr.startColor = Color.red;
+            lr.endColor = Color.red;
+        }
+        else
+        {
+            lr.startColor = Color.white;
+            lr.endColor = Color.white;
+        }
     }
     private void DragRelease(Vector2 pos)
     {
@@ -73,9 +84,11 @@ public class Ball : MonoBehaviour
         {
             return;
         }
-        Vector2 dir = (Vector2)transform.position - pos;
-        rb.linearVelocity = Vector2.ClampMagnitude(dir * power, maxPower);
-        shot = true;
+        
+            Vector2 dir = (Vector2)transform.position - pos;
+            rb.linearVelocity = Vector2.ClampMagnitude(dir * power, maxPower);
+            shot = true;
+        
     }
 
     private void CheckWinState()
