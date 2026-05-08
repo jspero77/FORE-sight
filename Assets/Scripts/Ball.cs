@@ -17,6 +17,7 @@ public class Ball : MonoBehaviour
     [SerializeField] public bool inHole;
     [SerializeField] public bool turn = false;
     [SerializeField] public bool shot = false;
+    [SerializeField] public float distances = 0;
 
     private void Update() {
 
@@ -24,6 +25,7 @@ public class Ball : MonoBehaviour
         {
             Debug.Log("Player 1 Has Shot");
             turn = false;
+            shot = false;
             
 
 
@@ -105,6 +107,10 @@ public class Ball : MonoBehaviour
         {
             inHole = true;
             rb.linearVelocity = Vector2.zero;
+            distances = 0;
+            Debug.Log("Player 1 Has Shot");
+            turn = false;
+            shot = false;
             gameObject.SetActive(false);
 
             //Eliminate Player

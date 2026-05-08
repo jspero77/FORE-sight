@@ -149,12 +149,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   playerCount: 4
-  curPlayer: 1
+  curPlayer: 0
   golf:
   - {fileID: 151415858}
   - {fileID: 978190496}
   - {fileID: 946743478}
   - {fileID: 592103822}
+  start: {fileID: 0}
+  end: {fileID: 2089057827}
+  curplay: {fileID: 391960114}
 --- !u!4 &136492471
 Transform:
   m_ObjectHideFlags: 0
@@ -272,7 +275,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 151415858}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 4683af6589f4c0c4389b4e21f83bd2ee, type: 2}
@@ -342,11 +345,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   rb: {fileID: 151415862}
   lr: {fileID: 151415864}
+  cc: {fileID: 151415861}
   maxPower: 10
   power: 2
   maxGoalSpeed: 4
+  inHole: 0
   turn: 0
   shot: 0
+  distances: 0
 --- !u!120 &151415864
 LineRenderer:
   serializedVersion: 3
@@ -865,11 +871,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   rb: {fileID: 592103826}
   lr: {fileID: 592103824}
+  cc: {fileID: 592103825}
   maxPower: 10
   power: 2
   maxGoalSpeed: 4
+  inHole: 0
   turn: 0
   shot: 0
+  distances: 0
 --- !u!120 &592103824
 LineRenderer:
   serializedVersion: 3
@@ -994,7 +1003,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 592103822}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 4683af6589f4c0c4389b4e21f83bd2ee, type: 2}
@@ -1388,11 +1397,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   rb: {fileID: 946743482}
   lr: {fileID: 946743480}
+  cc: {fileID: 946743481}
   maxPower: 10
   power: 2
   maxGoalSpeed: 4
+  inHole: 0
   turn: 0
   shot: 0
+  distances: 0
 --- !u!120 &946743480
 LineRenderer:
   serializedVersion: 3
@@ -1517,7 +1529,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 946743478}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 4683af6589f4c0c4389b4e21f83bd2ee, type: 2}
@@ -1682,11 +1694,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   rb: {fileID: 978190500}
   lr: {fileID: 978190498}
+  cc: {fileID: 978190499}
   maxPower: 10
   power: 2
   maxGoalSpeed: 4
+  inHole: 0
   turn: 0
   shot: 0
+  distances: 0
 --- !u!120 &978190498
 LineRenderer:
   serializedVersion: 3
@@ -1811,7 +1826,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 978190496}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 4683af6589f4c0c4389b4e21f83bd2ee, type: 2}
