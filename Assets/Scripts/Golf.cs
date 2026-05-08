@@ -10,6 +10,7 @@ public class Golf : MonoBehaviour
     public GameObject start;
     public GameObject end;
     public GameObject curplay;
+    [SerializeField] GameObject[] tem;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -30,7 +31,8 @@ public class Golf : MonoBehaviour
 
 
             calculatedist();
-            if (curPlayer > playerCount - 2)
+            curPlayer++;
+            if (curPlayer > playerCount - 1)
             {
 
 
@@ -44,7 +46,7 @@ public class Golf : MonoBehaviour
             }
 
 
-            curPlayer++;
+            
             curplay.GetComponent<SpriteRenderer>().color = golf[curPlayer].GetComponent<SpriteRenderer>().color;
             golf[curPlayer].GetComponent<Ball>().turn = true;
         }
@@ -80,14 +82,15 @@ public class Golf : MonoBehaviour
         {
             playerCount--;
         }
-        GameObject[] tem = new GameObject[playerCount];
+        tem = new GameObject[playerCount];
+        int j = playerCount;
         for (int i = 0; i < remain; i++)
         {
-            int j = playerCount;
+            j = playerCount;
             for (int j2 = 0; j2 < remain; j2++)
             {
 
-                if (golf[i].GetComponent<Ball>().distances > golf[j2].GetComponent<Ball>().distances && i != j2)
+                if (golf[i].GetComponent<Ball>().distances < golf[j2].GetComponent<Ball>().distances && i != j2)
                 {
                     j--;
                 }
@@ -95,18 +98,18 @@ public class Golf : MonoBehaviour
             }
             if (j > 0 && roundOut > 0)
             {
-                tem[j - 1] = golf[i];
+                tem[j-1] = golf[i];
             }
-            else if (j > 0 && j < playerCount && roundOut < 1)
+            else if (j >= 0 && j != playerCount && roundOut < 1)
             {
             
-                    tem[j-1] = golf[i];
+                    tem[j] = golf[i];
                 
             }
         }
         for (int i = 0;i < playerCount; i++)
         {
-            golf[i] = tem[i];
+            golf[i] = tem[playerCount-i-1];
         }
     }
 
