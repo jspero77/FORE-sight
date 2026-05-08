@@ -6,6 +6,7 @@ public class Ball : MonoBehaviour
     [Header("References")]
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private LineRenderer lr;
+    [SerializeField] private CircleCollider2D cc;
 
     [Header("Attributes")]
     [SerializeField] private float maxPower = 10f;
@@ -13,7 +14,7 @@ public class Ball : MonoBehaviour
     [SerializeField] private float maxGoalSpeed = 4f;
 
     private bool isDragging;
-    private bool inHole;
+    [SerializeField] public bool inHole;
     [SerializeField] public bool turn = false;
     [SerializeField] public bool shot = false;
 
@@ -23,6 +24,7 @@ public class Ball : MonoBehaviour
         {
             Debug.Log("Player 1 Has Shot");
             turn = false;
+            
 
 
         }
@@ -88,6 +90,7 @@ public class Ball : MonoBehaviour
             Vector2 dir = (Vector2)transform.position - pos;
             rb.linearVelocity = Vector2.ClampMagnitude(dir * power, maxPower);
             shot = true;
+        cc.enabled = true;
         
     }
 

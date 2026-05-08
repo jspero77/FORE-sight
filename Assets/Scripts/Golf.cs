@@ -32,6 +32,10 @@ public class Golf : MonoBehaviour
             if (curPlayer > golf.Length) {
                 golf[0].GetComponent<Ball>().turn = true;
                 curPlayer = 1; 
+                for (int i = 0;i < golf.Length; i++)
+                {
+                    golf[i].GetComponent<CircleCollider2D>().enabled = false;
+                }
             }
             curplay.GetComponent<SpriteRenderer>().color = golf[curPlayer-1].GetComponent<SpriteRenderer>().color;
             golf[curPlayer-1].GetComponent<Ball>().turn = true;
@@ -43,6 +47,10 @@ public class Golf : MonoBehaviour
         for (int i = 0;i < golf.Length; i++)
         {
             distances[i] = Vector2.Distance(golf[i].transform.position, end.transform.position);
+            if (golf[i].GetComponent<Ball>().inHole == true)
+            {
+                distances[i] = 0;
+            }
         }
     }
 }
