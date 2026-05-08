@@ -14,35 +14,60 @@ public class Ball : MonoBehaviour
 
     private bool isDragging;
     private bool inHole;
+    [SerializeField] public bool turn = false;
+    [SerializeField] public bool shot = false;
 
     private void Update() {
-        PlayerInput();
-       
+
+        if (shot == true && rb.linearVelocity.magnitude < 0.01f)
+        {
+            Debug.Log("Player 1 Has Shot");
+            turn = false;
+
+
+        }
+        if (turn == true && shot == false)
+        {
+            PlayerInput();
+        }
+    }
+
+    private bool IsReady()
+    {
+        return rb.linearVelocity.magnitude < 0.2f;
     }
 
     private void PlayerInput()
     {
+        if (!IsReady()) return;
         Vector2 inputPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float distance = Vector2.Distance(transform.position, inputPos);
 
         if (Input.GetMouseButtonDown(0) && distance <= 0.5f) DragStart();
-        if (Input.GetMouseButton(0) && isDragging) DragChange();
+        if (Input.GetMouseButton(0) && isDragging) DragChange(inputPos);
         if (Input.GetMouseButtonUp(0) && isDragging) DragRelease(inputPos);
 
 
     }
     private void DragStart()
     {
+        
         isDragging = true;
-    }
-    private void DragChange()
-    {
+        lr.positionCount = 2;
 
+    }
+    private void DragChange(Vector2 pos)
+    {
+        Vector2 dir = (Vector2)transform.position - pos;
+
+        lr.SetPosition(0, transform.position);
+        lr.SetPosition(1, (Vector2)transform.position + Vector2.ClampMagnitude(dir * power / 4, maxPower / 4));
     }
     private void DragRelease(Vector2 pos)
     {
         float distance = Vector2.Distance((Vector2)transform.position, pos);
         isDragging = false;
+        lr.positionCount = 0;
 
         if (distance < 1f)
         {
@@ -50,7 +75,38 @@ public class Ball : MonoBehaviour
         }
         Vector2 dir = (Vector2)transform.position - pos;
         rb.linearVelocity = Vector2.ClampMagnitude(dir * power, maxPower);
-
+        shot = true;
     }
 
+    private void CheckWinState()
+    {
+        if (inHole)
+        {
+            return;
+            
+        }
+        if (rb.linearVelocity.magnitude < maxGoalSpeed)
+        {
+            inHole = true;
+            rb.linearVelocity = Vector2.zero;
+            gameObject.SetActive(false);
+
+            //Eliminate Player
+
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Goal")
+        {
+            CheckWinState();
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Goal")
+        {
+            CheckWinState();
+        }
+    }
 }
