@@ -109,7 +109,7 @@ public class Ball : MonoBehaviour
         {
             inHole = true;
             rb.linearVelocity = Vector2.zero;
-            distances = 0;
+            distances = 10000;
             Debug.Log("Player 1 Has Shot");
             turn = false;
             shot = false;

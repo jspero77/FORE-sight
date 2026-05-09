@@ -27,6 +27,7 @@ public class Golf : MonoBehaviour
         stroke = 1;
         golf[0].transform.position = start.transform.position;
         playerCount = gameplayers;
+
         
 
         
@@ -40,9 +41,10 @@ public class Golf : MonoBehaviour
         {
 
 
-            calculatedist();
-            curPlayer++;
             
+            curPlayer++;
+            calculatedist();
+
             if (curPlayer > playerCount - 1)
             {
 
@@ -54,7 +56,12 @@ public class Golf : MonoBehaviour
                 {
                     golf[i].GetComponent<CircleCollider2D>().enabled = false;
                 }
+                if(playerCount == 1)
+                {
+                    EndLevel();
+                }
                 golf[0].GetComponent<Ball>().turn = true;
+                curPlayer = 0;
             }
 
             if (stroke == 1)
@@ -64,24 +71,25 @@ public class Golf : MonoBehaviour
 
             curplay.GetComponent<SpriteRenderer>().color = golf[curPlayer].GetComponent<SpriteRenderer>().color;
             golf[curPlayer].GetComponent<Ball>().turn = true;
+            
         }
 
     }
     public void calculatedist()
     {
-        int k = playerCount;
+        int p = playerCount;
         for (int i = 0;i < playerCount; i++)
         {
             
             golf[i].GetComponent<Ball>().distances = Vector2.Distance(golf[i].transform.position, end.transform.position);
             if (golf[i].GetComponent<Ball>().inHole)
             {
-                k--;
-                golf[i].GetComponent<Ball>().distances = 0;
+                p--;
+                golf[i].GetComponent<Ball>().distances = 10000;
                     }
 
         }
-        if (k == 1)
+        if (p == 1)
         {
             for (int i = 0; i < playerCount; i++)
             {
@@ -90,9 +98,9 @@ public class Golf : MonoBehaviour
                     golf[i].GetComponent<Ball>().stroke++;
                 }
             }
-            calculatedist();
             WhoOut();
-                EndLevel();
+            EndLevel();
+            curPlayer = 0;
         }
     }
     public void WhoOut()
@@ -104,7 +112,7 @@ public class Golf : MonoBehaviour
         for (int i = 0; i < playerCount; i++)
         {
             
-            if (golf[i].GetComponent<Ball>().distances == 0)
+            if (golf[i].GetComponent<Ball>().distances == 10000)
             {
                 roundOut++;
                 playerCount--;
@@ -125,7 +133,7 @@ public class Golf : MonoBehaviour
             for (int j2 = 0; j2 < remain; j2++)
             {
 
-                if (golf[i].GetComponent<Ball>().distances < golf[j2].GetComponent<Ball>().distances && i != j2)
+                if (golf[i].GetComponent<Ball>().distances > golf[j2].GetComponent<Ball>().distances && i != j2)
                 {
                     j--;
                 }
@@ -143,10 +151,10 @@ public class Golf : MonoBehaviour
                 golf[i].SetActive(false);
             }
 
-            if (j >= 0 && j != playerCount && roundOut < 1)
+            if (j > 0 && roundOut < 1)
             {
 
-                tem[j] = golf[i];
+                tem[j-1] = golf[i];
 
             }
             else if (roundOut < 1)
@@ -162,22 +170,24 @@ public class Golf : MonoBehaviour
             if (i < playerCount)
             {
                 tem[i].GetComponent<Ball>().stroke++;
-                golf[i] = tem[playerCount - i - 1];
+
+                    golf[i] = tem[i];
+       
             }
             else
             {
                 if (tem[i] != null)
                 {
                     golf[i] = tem[i];
+                    golf[i].GetComponent <Ball>().inHole = true;
                 }
             }
             
             
         }
-        if (playerCount == 1)
-        {
-            EndLevel();
-        }
+
+            
+        
     }
     public void EndLevel()
     {
@@ -188,20 +198,21 @@ public class Golf : MonoBehaviour
 
         for (int i = 0; i < golf.Length; i++)
         {
-            golf[i].GetComponent<Ball>().stroke = 1;
-            golf[i].GetComponent<Ball>().distances = Vector2.Distance(golf[i].transform.position, end.transform.position);
-            golf[0].GetComponent<Ball>().turn = true;
             golf[i].SetActive(true);
+            golf[i].GetComponent<Ball>().stroke = 1;
+            golf[i].GetComponent<Ball>().distances = 10;
+            golf[0].GetComponent<Ball>().turn = true;
+            golf[0].GetComponent<Ball>().shot = false;
+
             golf[i].transform.position = off.transform.position;
             golf[i].GetComponent<CircleCollider2D>().enabled = false;
-            if (i < playerCount)
-            {
-                golf[i].GetComponent<Ball>().inHole = false;
-            }
+            golf[i].GetComponent<Ball>().inHole = false;
+            curPlayer = 0;
+            
         }
 
         curplay.GetComponent<SpriteRenderer>().color = golf[0].GetComponent<SpriteRenderer>().color;
-        stroke = 0;
+        stroke = 1;
         golf[0].transform.position = start.transform.position;
     }
 
