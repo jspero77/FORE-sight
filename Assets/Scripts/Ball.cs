@@ -18,6 +18,8 @@ public class Ball : MonoBehaviour
     [SerializeField] public bool turn = false;
     [SerializeField] public bool shot = false;
     [SerializeField] public float distances = 0;
+    [SerializeField] public int stroke = 0;
+    [SerializeField] public int points = 0;
 
     private void Update() {
 
