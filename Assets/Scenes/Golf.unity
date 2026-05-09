@@ -247,11 +247,6 @@ MonoBehaviour:
   - {fileID: 978190496}
   - {fileID: 946743478}
   - {fileID: 592103822}
-  archive:
-  - {fileID: 151415858}
-  - {fileID: 978190496}
-  - {fileID: 946743478}
-  - {fileID: 592103822}
   start: {fileID: 1561959989}
   end: {fileID: 2089057827}
   curplay: {fileID: 391960114}
@@ -455,6 +450,7 @@ MonoBehaviour:
   distances: 0
   stroke: 0
   points: 0
+  off: {fileID: 116479388}
 --- !u!120 &151415864
 LineRenderer:
   serializedVersion: 3
@@ -983,6 +979,7 @@ MonoBehaviour:
   distances: 0
   stroke: 0
   points: 0
+  off: {fileID: 116479388}
 --- !u!120 &592103824
 LineRenderer:
   serializedVersion: 3
@@ -1511,6 +1508,7 @@ MonoBehaviour:
   distances: 0
   stroke: 0
   points: 0
+  off: {fileID: 116479388}
 --- !u!120 &946743480
 LineRenderer:
   serializedVersion: 3
@@ -1810,6 +1808,7 @@ MonoBehaviour:
   distances: 0
   stroke: 0
   points: 0
+  off: {fileID: 116479388}
 --- !u!120 &978190498
 LineRenderer:
   serializedVersion: 3
