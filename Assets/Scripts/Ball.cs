@@ -20,6 +20,7 @@ public class Ball : MonoBehaviour
     [SerializeField] public float distances = 0;
     [SerializeField] public int stroke = 0;
     [SerializeField] public int points = 0;
+    public GameObject off;
 
     private void Update() {
 
@@ -113,7 +114,7 @@ public class Ball : MonoBehaviour
             Debug.Log("Player 1 Has Shot");
             turn = false;
             shot = false;
-            gameObject.SetActive(false);
+            transform.position = off.transform.position;
 
             //Eliminate Player
 

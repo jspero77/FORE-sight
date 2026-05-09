@@ -8,7 +8,6 @@ public class Golf : MonoBehaviour
     public int gameplayers = 4;
     public int curPlayer = 0;
     public GameObject[] golf;
-    public GameObject[] archive;
     public GameObject start;
     public GameObject end;
     public GameObject curplay;
@@ -36,8 +35,11 @@ public class Golf : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if (golf[curPlayer].GetComponent<Ball>().turn == false)
+        if (golf[curPlayer].GetComponent<Ball>().turn == true && golf[curPlayer].GetComponent<Ball>().shot == true)
+        {
+            calculatedist();
+        }
+            if (golf[curPlayer].GetComponent<Ball>().turn == false)
         {
 
 
@@ -101,6 +103,7 @@ public class Golf : MonoBehaviour
             WhoOut();
             EndLevel();
             curPlayer = 0;
+
         }
     }
     public void WhoOut()
@@ -109,12 +112,13 @@ public class Golf : MonoBehaviour
         int remain = playerCount;
         int m = playerCount - 1;
 
-        for (int i = 0; i < playerCount; i++)
+        for (int i = 0; i < remain; i++)
         {
             
-            if (golf[i].GetComponent<Ball>().distances == 10000)
+            if (golf[i].GetComponent<Ball>().inHole == true)
             {
                 roundOut++;
+                golf[i].transform.position = off.transform.position;
                 playerCount--;
             }
             
@@ -148,7 +152,7 @@ public class Golf : MonoBehaviour
             {
                 tem[m] = golf[i];
                 m--;
-                golf[i].SetActive(false);
+                golf[i].transform.position = off.transform.position;
             }
 
             if (j > 0 && roundOut < 1)
@@ -161,7 +165,7 @@ public class Golf : MonoBehaviour
             {
                 tem[m] = golf[i];
                 m--;
-                golf[i].SetActive(false);
+                golf[i].transform.position = off.transform.position;
                 
             }
         }
@@ -200,10 +204,12 @@ public class Golf : MonoBehaviour
         {
             golf[i].SetActive(true);
             golf[i].GetComponent<Ball>().stroke = 1;
+            golf[i].GetComponent<Ball>().turn = false;
+            golf[i].GetComponent<Ball>().shot = true;
             golf[i].GetComponent<Ball>().distances = 10;
             golf[0].GetComponent<Ball>().turn = true;
             golf[0].GetComponent<Ball>().shot = false;
-
+            golf[i].GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
             golf[i].transform.position = off.transform.position;
             golf[i].GetComponent<CircleCollider2D>().enabled = false;
             golf[i].GetComponent<Ball>().inHole = false;
