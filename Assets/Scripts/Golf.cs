@@ -1,6 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Golf : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class Golf : MonoBehaviour
     [SerializeField] GameObject[] tem;
     public int stroke;
     public Grid[] levels;
+    public int level = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -23,16 +25,20 @@ public class Golf : MonoBehaviour
         {
             golf[i].GetComponent<Ball>().distances = Vector2.Distance(golf[i].transform.position, end.transform.position);
         }
+        reshuffle();
+        levels[level].transform.position = new Vector3(33, -17, 1);
+        start.transform.position = levels[level].GetComponent<grid>().st.transform.position;
+        end.transform.position = levels[level].GetComponent<grid>().ed.transform.position;
         curplay.GetComponent<SpriteRenderer>().color = golf[0].GetComponent<SpriteRenderer>().color;
         stroke = 1;
         golf[0].transform.position = start.transform.position;
         playerCount = gameplayers;
 
-        levels[0].transform.position = new Vector3 (33, -17, 1);
-
         
 
-        
+
+
+
     }
 
     // Update is called once per frame
@@ -202,7 +208,12 @@ public class Golf : MonoBehaviour
         playerCount = gameplayers;
 
         golf[0].GetComponent<Ball>().points++;
-
+        golf[0].GetComponent<Ball>().scor.text = ""+golf[0].GetComponent<Ball>().points;
+        levels[level].transform.position = new Vector3(-100, -17, 1);
+        level++;
+        levels[level].transform.position = new Vector3(33, -17, 1);
+        start.transform.position = levels[level].GetComponent<grid>().st.transform.position;
+        end.transform.position = levels[level].GetComponent<grid>().ed.transform.position;
         for (int i = 0; i < golf.Length; i++)
         {
             golf[i].SetActive(true);
@@ -223,6 +234,18 @@ public class Golf : MonoBehaviour
         curplay.GetComponent<SpriteRenderer>().color = golf[0].GetComponent<SpriteRenderer>().color;
         stroke = 1;
         golf[0].transform.position = start.transform.position;
+    }
+
+    public void reshuffle()
+    {
+        // Knuth shuffle algorithm :: courtesy of Wikipedia :)
+        for (int t = 0; t < levels.Length; t++)
+        {
+            Grid tmp = levels[t];
+            int r = UnityEngine.Random.Range(t, levels.Length);
+            levels[t] = levels[r];
+            levels[r] = tmp;
+        }
     }
 
 }

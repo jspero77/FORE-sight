@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,6 +22,7 @@ public class Ball : MonoBehaviour
     [SerializeField] public int stroke = 0;
     [SerializeField] public int points = 0;
     public GameObject off;
+    public TextMeshPro scor;
 
     private void Update() {
 
