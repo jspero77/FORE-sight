@@ -3494,7 +3494,7 @@ MonoBehaviour:
   rb: {fileID: 151415862}
   lr: {fileID: 151415864}
   cc: {fileID: 151415861}
-  maxPower: 25
+  maxPower: 15
   power: 2
   maxGoalSpeed: 4
   inHole: 0
@@ -6109,7 +6109,7 @@ MonoBehaviour:
   rb: {fileID: 592103826}
   lr: {fileID: 592103824}
   cc: {fileID: 592103825}
-  maxPower: 25
+  maxPower: 15
   power: 2
   maxGoalSpeed: 4
   inHole: 0
@@ -13878,7 +13878,7 @@ MonoBehaviour:
   rb: {fileID: 946743482}
   lr: {fileID: 946743480}
   cc: {fileID: 946743481}
-  maxPower: 25
+  maxPower: 15
   power: 2
   maxGoalSpeed: 4
   inHole: 0
@@ -15345,7 +15345,7 @@ MonoBehaviour:
   rb: {fileID: 978190500}
   lr: {fileID: 978190498}
   cc: {fileID: 978190499}
-  maxPower: 25
+  maxPower: 15
   power: 2
   maxGoalSpeed: 4
   inHole: 0
