@@ -28,7 +28,7 @@ public class Golf : MonoBehaviour
         golf[0].transform.position = start.transform.position;
         playerCount = gameplayers;
 
-        levels[0].transform.position = new Vector3 (33, -17, 0);
+        levels[0].transform.position = new Vector3 (33, -17, 1);
 
         
 
