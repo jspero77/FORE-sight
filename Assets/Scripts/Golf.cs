@@ -1,6 +1,8 @@
 using System;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class Golf : MonoBehaviour
@@ -17,6 +19,9 @@ public class Golf : MonoBehaviour
     public int stroke;
     public Grid[] levels;
     public int level = 0;
+    public Camera main;
+    public GameObject c2;
+    public int dun = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -44,6 +49,13 @@ public class Golf : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (dun == 1 && Input.GetMouseButtonDown((0)))
+        {
+            SceneManager.LoadScene("Main");
+        }
+        
+
+        
         if (golf[curPlayer].GetComponent<Ball>().turn == true && golf[curPlayer].GetComponent<Ball>().shot == true)
         {
             calculatedist();
@@ -66,6 +78,7 @@ public class Golf : MonoBehaviour
                 for (int i = 0; i < playerCount; i++)
                 {
                     golf[i].GetComponent<CircleCollider2D>().enabled = false;
+                    golf[i].GetComponent<SpriteRenderer>().enabled = false;
                 }
                 if(playerCount == 1)
                 {
@@ -82,6 +95,7 @@ public class Golf : MonoBehaviour
 
             curplay.GetComponent<SpriteRenderer>().color = golf[curPlayer].GetComponent<SpriteRenderer>().color;
             golf[curPlayer].GetComponent<Ball>().turn = true;
+            golf[curPlayer].GetComponent <SpriteRenderer>().enabled = true;
             
         }
 
@@ -216,6 +230,12 @@ public class Golf : MonoBehaviour
         end.transform.position = levels[level].GetComponent<grid>().ed.transform.position;
         for (int i = 0; i < golf.Length; i++)
         {
+            if (golf[i].GetComponent<Ball>().points == 3)
+            {
+                main.transform.position = new Vector3(7, -65, -10);
+                dun = 1;
+                c2.GetComponent<SpriteRenderer>().color = golf[i].GetComponent<SpriteRenderer>().color;
+            }
             golf[i].SetActive(true);
             golf[i].GetComponent<Ball>().stroke = 1;
             golf[i].GetComponent<Ball>().turn = false;
@@ -227,6 +247,7 @@ public class Golf : MonoBehaviour
             golf[i].transform.position = off.transform.position;
             golf[i].GetComponent<CircleCollider2D>().enabled = false;
             golf[i].GetComponent<Ball>().inHole = false;
+            golf[0].GetComponent<SpriteRenderer>().enabled = true;
             curPlayer = 0;
             
         }
@@ -247,5 +268,6 @@ public class Golf : MonoBehaviour
             levels[r] = tmp;
         }
     }
+
 
 }
