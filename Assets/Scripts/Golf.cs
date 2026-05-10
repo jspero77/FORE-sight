@@ -14,6 +14,7 @@ public class Golf : MonoBehaviour
     public GameObject off;
     [SerializeField] GameObject[] tem;
     public int stroke;
+    public Grid[] levels;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,6 +27,8 @@ public class Golf : MonoBehaviour
         stroke = 1;
         golf[0].transform.position = start.transform.position;
         playerCount = gameplayers;
+
+        levels[0].transform.position = new Vector3 (33, -17, 0);
 
         
 
