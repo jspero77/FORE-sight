@@ -23,6 +23,7 @@ public class Ball : MonoBehaviour
     [SerializeField] public int points = 0;
     public GameObject off;
     public TextMeshPro scor;
+    public AudioSource bounce;
 
     private void Update() {
 
@@ -121,6 +122,10 @@ public class Ball : MonoBehaviour
             //Eliminate Player
 
         }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        bounce.Play();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
